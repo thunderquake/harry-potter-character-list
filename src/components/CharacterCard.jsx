@@ -1,7 +1,6 @@
-const CharacterCard = ({ name, species, image }) => {
-  console.log(name);
+import { MISSING_CHARACTER } from "../constants/constants.jsx";
 
-  const MISSING_CHARACTER = "https://potterdb.com/images/missing_character.svg";
+const CharacterCard = ({ name, species, image }) => {
   return (
     <div className="flex flex-col justify-between items-center mx-auto p-4 rounded-lg bg-dun shadow-md w-64 h-80 border-dun border-2 hover:border-wtfdarkbrown">
       <img
