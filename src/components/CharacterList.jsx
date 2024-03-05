@@ -2,7 +2,7 @@ import CharacterCard from "./CharacterCard";
 
 const CharacterList = ({ characterArray }) => {
   return (
-    <div className="flex flex-wrap px-10 gap-y-6 gap-x-2">
+    <div className="flex flex-wrap items-center justify-center gap-4">
       {characterArray.map((character) => (
         <CharacterCard
           name={character.attributes.name}
