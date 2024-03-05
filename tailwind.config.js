@@ -5,8 +5,8 @@ export default {
     extend: {
       colors: {
         dun: "#ddc8a6",
-        wtfbrown: "#594e36",
-        wtfdarkbrown: "#2f2504",
+        hpbrown: "#594e36",
+        hpdarkbrown: "#2f2504",
         hpblue: "#000029",
       },
     },

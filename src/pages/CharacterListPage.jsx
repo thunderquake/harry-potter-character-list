@@ -1,4 +1,5 @@
-import CharacterList from "./CharacterList";
+import CharacterList from "../components/CharacterList";
+import hplogo from "../assets/hplogo.png";
 
 const CharacterListPage = () => {
   const character = {
@@ -49,11 +50,11 @@ const CharacterListPage = () => {
   const didArray = new Array(20).fill(character);
 
   return (
-    <div className="flex flex-col gap-4 justify-center items-center bg-wtfbrown min-h-svh p-10">
-      <p className="text-4xl font-bold mb-4 text-wtfdarkbrown">
-        Harry Potter character list
-      </p>
-      <CharacterList characterArray={didArray} />
+    <div className=" bg-hpbrown min-h-svh">
+      <div className="container mx-auto p-10">
+        <img src={hplogo} className="max-w-96 mx-auto pb-6"></img>
+        <CharacterList characterArray={didArray} />
+      </div>
     </div>
   );
 };
