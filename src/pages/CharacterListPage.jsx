@@ -1,7 +1,7 @@
 import hplogo from "../assets/hplogo.png";
 import { useQuery } from "react-query";
 import { useState, useEffect } from "react";
-import HttpService from "../services/httpService";
+import characterService from "../services/characterService";
 import CharacterList from "../components/CharacterList";
 
 const CharacterListPage = () => {
@@ -11,7 +11,7 @@ const CharacterListPage = () => {
     data: charactersResponse,
   } = useQuery({
     queryKey: "characters",
-    queryFn: () => HttpService.getCharacters(20, 1),
+    queryFn: () => characterService.getCharacters(20, 1),
   });
   const [characters, setCharacters] = useState([]);
 

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useQuery } from "react-query";
 
-class HttpService {
+class characterService {
   constructor(baseURL = "https://api.potterdb.com/v1") {
     this.baseUrl = baseURL;
     this.instance = axios.create({ baseURL: this.baseUrl });
@@ -22,4 +22,4 @@ class HttpService {
   }
 }
 
-export default new HttpService();
+export default new characterService();
