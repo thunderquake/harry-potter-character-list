@@ -24,7 +24,7 @@ const CharacterListPage = () => {
 
   return (
     <div className=" bg-hpbrown min-h-svh">
-      <div className="container mx-auto py-10 px-16">
+      <div className="container mx-auto py-10">
         <img src={hplogo} className="max-w-full w-96 mx-auto pb-8"></img>
         {characters && <CharacterList characterArray={characters} />}
       </div>
