@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useQuery } from "react-query";
 
 class characterService {
   constructor(baseURL = "https://api.potterdb.com/v1") {
