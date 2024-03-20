@@ -8,6 +8,7 @@ const CharacterList = ({ characterArray }) => {
           name={character.attributes.name}
           image={character.attributes.image}
           species={character.attributes.species}
+          slug={character.attributes.slug}
           key={character.id}
         />
       ))}

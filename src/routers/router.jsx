@@ -1,7 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import CharacterListPage from "../pages/CharacterListPage";
-import ErrorPage from "../components/ErrorPage";
-import NotFoundPage from "../components/NotFoundPage";
+import ErrorPage from "../pages/ErrorPage";
+import NotFoundPage from "../pages/NotFoundPage";
+import CharacterPage from "../pages/CharacterPage";
 
 const router = createBrowserRouter([
   {
@@ -12,6 +13,11 @@ const router = createBrowserRouter([
   {
     path: "*",
     element: <NotFoundPage />,
+  },
+  {
+    path: "/character/:slug",
+    element: <CharacterPage />,
+    errorElement: <ErrorPage />,
   },
 ]);
 
