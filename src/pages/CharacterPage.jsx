@@ -3,6 +3,7 @@ import { useQuery } from "react-query";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import characterService from "../services/characterService";
+import GoBackButton from "../components/GoBackButton";
 
 const CharacterPage = () => {
   const { slug } = useParams();
@@ -27,6 +28,7 @@ const CharacterPage = () => {
 
   return (
     <div className=" bg-hpbrown min-h-svh">
+      <GoBackButton />
       {character && (
         <CharacterInfo
           image={character.attributes.image}
