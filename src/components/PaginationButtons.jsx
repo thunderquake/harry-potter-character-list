@@ -1,22 +1,57 @@
 import ReactPaginate from "react-paginate";
+import { useState } from "react";
 
-const PaginationButtons = ({ pageCount }) => {
+const PaginationButtons = ({
+  pageCount,
+  searchParams,
+  setSearchParams,
+  setPage,
+}) => {
+  const handlePageClick = ({ selected }) => {
+    const page = selected + 1;
+    setPage(page);
+    setSearchParams({ page });
+  };
+
+  const currentPage = Number(searchParams.get("page"));
+
   return (
     <div className="flex justify-center items-center mt-4 pb-6">
       <ReactPaginate
-        breakLabel={<span className="mx-2">...</span>}
-        nextLabel={<span className="mx-2">next &gt;</span>}
-        //onPageChange={handlePageClick}
-        pageRangeDisplayed={1} // Show only the current page
+        forcePage={currentPage - 1}
+        breakLabel={
+          <span className="mx-2 px-3 py-1 rounded-full bg-dun hover:bg-yellow-500">
+            ...
+          </span>
+        }
+        nextLabel={
+          currentPage < pageCount ? (
+            <span className="mx-2">next &gt;</span>
+          ) : (
+            <></>
+          )
+        }
+        onPageChange={handlePageClick}
+        pageRangeDisplayed={3}
         marginPagesDisplayed={1}
         pageCount={Number(pageCount)}
-        previousLabel={<span className="mx-2">&lt; previous</span>}
+        previousLabel={
+          currentPage < 2 ? <></> : <span className="mx-2">&lt; previous</span>
+        }
         renderOnZeroPageCount={null}
         containerClassName="flex"
-        pageLinkClassName="mx-2 px-3 py-1 rounded-full bg-gray-200 hover:bg-gray-300"
-        activeLinkClassName="mx-2 px-3 py-1 rounded-full bg-hpbrown text-white"
-        previousLinkClassName="mx-2 px-3 py-1 rounded-full bg-gray-200 hover:bg-gray-300"
-        nextLinkClassName="mx-2 px-3 py-1 rounded-full bg-gray-200 hover:bg-gray-300"
+        pageLinkClassName="mx-2 px-3 py-1 rounded-full bg-dun hover:bg-yellow-500"
+        activeLinkClassName="mx-2 px-3 py-1 rounded-full bg-yellow-700 text-white"
+        previousLinkClassName={
+          currentPage < 2
+            ? ""
+            : "mx-2 px-3 py-1 rounded-full bg-dun hover:bg-yellow-500"
+        }
+        nextLinkClassName={
+          currentPage < pageCount
+            ? "mx-2 px-3 py-1 rounded-full bg-dun hover:bg-yellow-500"
+            : ""
+        }
         breakClassName=""
       />
     </div>

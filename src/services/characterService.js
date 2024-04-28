@@ -14,7 +14,7 @@ class characterService {
           "page[number]": pageNumber,
         },
       });
-      return response.data.data;
+      return response.data;
     } catch (error) {
       throw new Error("Failed to fetch characters");
     }
