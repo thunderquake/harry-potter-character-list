@@ -9,11 +9,11 @@ const CharacterInfo = (character) => {
   };
 
   return (
-    <div className="container w-fit mx-auto content-center py-2 px-16">
-      <div className="flex flex-col justify-center items-center gap-4 p-6 w-fit rounded-lg bg-dun shadow-lg shadow-yellow-700 ring ring-yellow-500">
+    <div className="container mx-auto content-center py-2 flex justify-center px-1">
+      <div className="flex w-96 flex-col justify-center items-center gap-4 p-6 rounded-lg bg-dun shadow-lg shadow-yellow-700 ring ring-yellow-500">
         <img
           src={character.image || MISSING_CHARACTER}
-          className="object-cover w-52 h-52 rounded-full mb-5 shadow-lg"
+          className="object-cover object-top w-52 h-52 rounded-full mb-5 shadow-lg"
         ></img>
         {Object.entries(characterData).map(([property, value]) => {
           return (
