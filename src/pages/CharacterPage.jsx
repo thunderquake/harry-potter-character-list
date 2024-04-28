@@ -17,7 +17,6 @@ const CharacterPage = () => {
     queryFn: () => characterService.getCharacterByID(slug),
   });
   const [character, setCharacter] = useState(null);
-  console.log(slug);
 
   useEffect(() => {
     setCharacter(characterByID);
