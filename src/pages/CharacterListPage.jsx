@@ -9,7 +9,7 @@ import { CHARACTERS_PAGE_LIMIT } from "../constants/constants";
 
 const CharacterListPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(searchParams.get("page"));
 
   const {
     isLoading,
@@ -51,6 +51,7 @@ const CharacterListPage = () => {
         searchParams={searchParams}
         setSearchParams={setSearchParams}
         setPage={setPage}
+        page={page}
       />
     </div>
   );
