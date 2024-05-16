@@ -34,7 +34,6 @@ const CharacterListPage = () => {
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error fetching data</div>;
 
-  console.log();
   const recordsCount = charactersResponse.meta.pagination.records;
   const pageCount = Math.ceil(recordsCount / CHARACTERS_PAGE_LIMIT);
 
