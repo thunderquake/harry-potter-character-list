@@ -4,34 +4,38 @@ import { useState, useEffect } from "react";
 import characterService from "../services/characterService";
 import CharacterList from "../components/CharacterList";
 import PaginationButtons from "../components/PaginationButtons";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams, useNavigate } from "react-router-dom";
 import { CHARACTERS_PAGE_LIMIT } from "../constants/constants";
 import SearchBar from "../components/SearchBar";
+import RemoveFiltersButton from "../components/RemoveFiltersButton";
 
 const CharacterListPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [page, setPage] = useState(searchParams.get("page"));
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState(searchParams.get("name") ?? "");
+  const [characters, setCharacters] = useState([]);
 
   const {
     isLoading,
     isError,
     data: charactersResponse,
-    refetch,
   } = useQuery({
-    queryKey: ["characters", Number(searchParams.get("page"))],
+    queryKey: [
+      "characters",
+      Number(searchParams.get("page")),
+      ...(searchParams.has("name") ? [searchParams.get("name")] : []),
+    ],
     queryFn: () =>
       characterService.getCharacters(
         20,
-        searchParams.get("page") ? Number(searchParams.get("page")) : 1
+        searchParams.get("page") ? Number(searchParams.get("page")) : 1,
+        searchParams.get("name") ?? ""
       ),
   });
 
-  const [characters, setCharacters] = useState([]);
-
   useEffect(() => {
     setCharacters(charactersResponse ? charactersResponse.data : []);
-  }, [charactersResponse]);
+  }, [charactersResponse, searchTerm]);
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error fetching data</div>;
@@ -42,21 +46,30 @@ const CharacterListPage = () => {
   return (
     <div className=" bg-hpbrown min-h-svh">
       <div className="container mx-auto py-10">
-        <Link to="?page=1">
+        <Link to="?page=1" onClick={() => setSearchTerm("")}>
           <img src={hplogo} className="max-w-full w-96 mx-auto pb-8"></img>
         </Link>
         <div className="flex justify-center">
-          <SearchBar />
+          <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         </div>
-        {characters && <CharacterList characterArray={characters} />}
+        {characters.length > 0 ? (
+          <CharacterList characterArray={characters} />
+        ) : (
+          <RemoveFiltersButton
+            setSearchParams={setSearchParams}
+            setSearchTerm={setSearchTerm}
+          />
+        )}
       </div>
-      <PaginationButtons
-        pageCount={pageCount}
-        searchParams={searchParams}
-        setSearchParams={setSearchParams}
-        setPage={setPage}
-        page={page}
-      />
+      {characters.length > 0 && (
+        <PaginationButtons
+          pageCount={pageCount}
+          searchParams={searchParams}
+          setSearchParams={setSearchParams}
+          setPage={setPage}
+          page={page}
+        />
+      )}
     </div>
   );
 };

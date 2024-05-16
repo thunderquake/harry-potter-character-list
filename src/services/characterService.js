@@ -6,12 +6,13 @@ class characterService {
     this.instance = axios.create({ baseURL: this.baseUrl });
   }
 
-  async getCharacters(pageSize, pageNumber) {
+  async getCharacters(pageSize, pageNumber, searchTerm) {
     try {
       const response = await this.instance.get("/characters", {
         params: {
           "page[size]": pageSize,
           "page[number]": pageNumber,
+          "filter[name_cont]": searchTerm,
         },
       });
       return response.data;

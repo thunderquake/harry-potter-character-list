@@ -1,9 +1,34 @@
-import React from "react";
+import React, { useCallback } from "react";
+import { useMemo, useEffect } from "react";
+import debounce from "lodash.debounce";
+import { useSearchParams } from "react-router-dom";
 
-const SearchBar = (searchTerm, setSearchTerm) => {
+const SearchBar = ({ searchTerm, setSearchTerm }) => {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const changeSearchParams = useCallback((searchName) => {
+    setSearchParams({
+      page: 1,
+      ...(searchName.length > 0 ? { name: searchName } : {}),
+    });
+  }, []);
+
   const handleChange = (e) => {
-    setSearchTerm(e.target.value);
+    const searchName = e.target.value.trimStart();
+    setSearchTerm(searchName);
+    debouncedSearchParams(searchName);
+    console.log(searchParams);
   };
+
+  const debouncedSearchParams = useMemo(() => {
+    return debounce(changeSearchParams, 1000);
+  }, [changeSearchParams]);
+
+  useEffect(() => {
+    return () => {
+      debouncedSearchParams.cancel();
+    };
+  }, []);
 
   return (
     <div className="mb-3 xl:w-96">

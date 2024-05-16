@@ -1,58 +1,75 @@
 import ReactPaginate from "react-paginate";
-import {useMediaQuery} from "@uidotdev/usehooks";
-
+import { useMediaQuery } from "@uidotdev/usehooks";
 
 const PaginationButtons = ({
   pageCount,
   searchParams,
   setSearchParams,
   setPage,
-  page
+  page,
 }) => {
-  
+  const searchName = searchParams.get("name") ?? "";
+
   const handlePageClick = ({ selected }) => {
     const page = selected + 1;
     setPage(page);
-    setSearchParams({ page });
+    setSearchParams({
+      page,
+      ...(searchName.length > 0 ? { name: searchName } : {}),
+    });
   };
 
   const handlePageClickNext = () => {
     setPage(Number(searchParams.get("page")) + 1);
-    setSearchParams({page: (Number(searchParams.get("page")) + 1)})
-  }
+    setSearchParams({
+      page: Number(searchParams.get("page")) + 1,
+      ...(searchName.length > 0 ? { name: searchName } : {}),
+    });
+  };
 
   const handlePageClickPrev = () => {
     setPage(Number(searchParams.get("page")) - 1);
-    setSearchParams({page: Number(searchParams.get("page")) - 1})
-  }
-  
+    setSearchParams({
+      page: Number(searchParams.get("page")) - 1,
+      ...(searchName.length > 0 ? { name: searchName } : {}),
+    });
+  };
+
   const isSmallDevice = useMediaQuery("only screen and (max-width : 768px)");
 
   const currentPage = Number(searchParams.get("page"));
 
   if (isSmallDevice) {
     return (
-    <div className="flex items-center justify-center gap-2">
-      <button
-        onClick={handlePageClickPrev}
+      <div className="flex items-center justify-center gap-2">
+        <button
+          onClick={handlePageClickPrev}
           disabled={page === 1}
-          className={(page === pageCount) ? "" : "rounded-xl bg-dun hover:bg-yellow-500 font-bold text-hpdarkbrown py-2 px-4"}
-      >
-        {(page === pageCount) ? "" : "<"}
-      </button>
-      <p className="font-bold text-dun">
-        Page <strong className="text-dun" >{page}</strong> of{" "}
-        <strong className="text-dun">{pageCount}</strong>
-      </p>
-      <button
-        onClick={handlePageClickNext}
+          className={
+            page === pageCount
+              ? ""
+              : "rounded-xl bg-dun hover:bg-yellow-500 font-bold text-hpdarkbrown py-2 px-4"
+          }
+        >
+          {page === pageCount ? "" : "<"}
+        </button>
+        <p className="font-bold text-dun">
+          Page <strong className="text-dun">{page}</strong> of{" "}
+          <strong className="text-dun">{pageCount}</strong>
+        </p>
+        <button
+          onClick={handlePageClickNext}
           disabled={page === pageCount}
-          className={(page === pageCount) ? "" : "rounded-xl bg-dun hover:bg-yellow-500 font-bold text-hpdarkbrown py-2 px-4"}
-      >
-        {(page === pageCount) ? "" : ">"}
-      </button>
-    </div>
-  );
+          className={
+            page === pageCount
+              ? ""
+              : "rounded-xl bg-dun hover:bg-yellow-500 font-bold text-hpdarkbrown py-2 px-4"
+          }
+        >
+          {page === pageCount ? "" : ">"}
+        </button>
+      </div>
+    );
   }
   return (
     <div className="flex justify-center items-center mt-4 pb-6">
@@ -94,6 +111,7 @@ const PaginationButtons = ({
         breakClassName=""
       />
     </div>
-  );}
+  );
+};
 
 export default PaginationButtons;
