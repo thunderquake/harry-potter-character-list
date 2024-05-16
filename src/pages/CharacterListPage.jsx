@@ -6,10 +6,12 @@ import CharacterList from "../components/CharacterList";
 import PaginationButtons from "../components/PaginationButtons";
 import { Link, useSearchParams } from "react-router-dom";
 import { CHARACTERS_PAGE_LIMIT } from "../constants/constants";
+import SearchBar from "../components/SearchBar";
 
 const CharacterListPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [page, setPage] = useState(searchParams.get("page"));
+  const [searchTerm, setSearchTerm] = useState("");
 
   const {
     isLoading,
@@ -43,6 +45,9 @@ const CharacterListPage = () => {
         <Link to="?page=1">
           <img src={hplogo} className="max-w-full w-96 mx-auto pb-8"></img>
         </Link>
+        <div className="flex justify-center">
+          <SearchBar />
+        </div>
         {characters && <CharacterList characterArray={characters} />}
       </div>
       <PaginationButtons
