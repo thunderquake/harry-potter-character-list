@@ -28,7 +28,7 @@ const CharacterPage = () => {
   return (
     <div className=" bg-hpbrown min-h-svh">
       <GoBackButton />
-      {character && (
+      {character && !isFetching ? (
         <CharacterInfo
           image={character.attributes.image}
           name={character.attributes.name}
@@ -36,8 +36,9 @@ const CharacterPage = () => {
           bloodStatus={character.attributes.blood_status}
           house={character.attributes.house}
         />
+      ) : (
+        <PageSkeleton />
       )}
-      {isFetching && <PageSkeleton />}
     </div>
   );
 };
