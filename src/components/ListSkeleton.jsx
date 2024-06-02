@@ -8,7 +8,7 @@ const ListSkeleton = ({ cards }) => {
       <div className="flex flex-wrap items-center justify-center gap-8">
         {Array(cards)
           .fill(0)
-          .map((cards, i) => (
+          .map((_, i) => (
             <div
               className="flex flex-col justify-between items-center rounded-lg bg-dun shadow-md w-64 h-80"
               key={i}
