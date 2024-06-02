@@ -17,7 +17,6 @@ const SearchBar = ({ searchTerm, setSearchTerm }) => {
     const searchName = e.target.value.trimStart();
     setSearchTerm(searchName);
     debouncedSearchParams(searchName);
-    console.log(searchParams);
   };
 
   const debouncedSearchParams = useMemo(() => {
