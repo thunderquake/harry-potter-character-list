@@ -10,7 +10,9 @@ const NotFoundPage = () => {
       className=" flex flex-col justify-center items-center bg-hpbrown min-h-svh"
     >
       <p className="text-white text-4xl font-bold">Whoopsie!</p>
-      <p className="text-white">The page you're looking for can't be found.</p>
+      <p className="text-white">
+        The page you&apos;re looking for can&apos;t be found.
+      </p>
     </div>
   );
 };
