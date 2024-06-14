@@ -11,12 +11,14 @@ import RemoveFiltersButton from "../components/RemoveFiltersButton";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import ListSkeleton from "../components/ListSkeleton";
+import FiltersButton from "../components/FiltersButton";
 
 const CharacterListPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [page, setPage] = useState(searchParams.get("page"));
   const [searchTerm, setSearchTerm] = useState(searchParams.get("name") ?? "");
   const [characters, setCharacters] = useState([]);
+  const [house, setHouse] = useState(searchParams.get("house") ?? "");
 
   const {
     isLoading,
@@ -27,18 +29,20 @@ const CharacterListPage = () => {
       "characters",
       Number(searchParams.get("page")),
       ...(searchParams.has("name") ? [searchParams.get("name")] : []),
+      ...(searchParams.has("house") ? [searchParams.get("house")] : []),
     ],
     queryFn: () =>
       characterService.getCharacters(
         20,
         searchParams.get("page") ? Number(searchParams.get("page")) : 1,
-        searchParams.get("name") ?? ""
+        searchParams.get("name") ?? "",
+        searchParams.get("house") ?? ""
       ),
   });
 
   useEffect(() => {
     setCharacters(charactersResponse ? charactersResponse.data : []);
-  }, [charactersResponse, searchTerm]);
+  }, [charactersResponse, searchTerm, house]);
 
   if (isError) return <div>Error fetching data</div>;
 
@@ -51,7 +55,8 @@ const CharacterListPage = () => {
         <Link to="?page=1" onClick={() => setSearchTerm("")}>
           <img src={hplogo} className="max-w-full w-96 mx-auto pb-8"></img>
         </Link>
-        <div className="flex justify-center">
+        <div className="flex flex-row gap-4 justify-center">
+          <FiltersButton setHouseParams={setHouse} />
           <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         </div>
 
