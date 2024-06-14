@@ -4,21 +4,18 @@ import { useState, useEffect } from "react";
 import characterService from "../services/characterService";
 import CharacterList from "../components/CharacterList";
 import PaginationButtons from "../components/PaginationButtons";
-import { Link, useSearchParams, useNavigate } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { CHARACTERS_PAGE_LIMIT } from "../constants/constants";
 import SearchBar from "../components/SearchBar";
 import RemoveFiltersButton from "../components/RemoveFiltersButton";
-import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import ListSkeleton from "../components/ListSkeleton";
-import FiltersButton from "../components/FiltersButton";
 
 const CharacterListPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [page, setPage] = useState(searchParams.get("page"));
   const [searchTerm, setSearchTerm] = useState(searchParams.get("name") ?? "");
   const [characters, setCharacters] = useState([]);
-  const [house, setHouse] = useState(searchParams.get("house") ?? "");
 
   const {
     isLoading,
@@ -29,20 +26,18 @@ const CharacterListPage = () => {
       "characters",
       Number(searchParams.get("page")),
       ...(searchParams.has("name") ? [searchParams.get("name")] : []),
-      ...(searchParams.has("house") ? [searchParams.get("house")] : []),
     ],
     queryFn: () =>
       characterService.getCharacters(
         20,
         searchParams.get("page") ? Number(searchParams.get("page")) : 1,
-        searchParams.get("name") ?? "",
-        searchParams.get("house") ?? ""
+        searchParams.get("name") ?? ""
       ),
   });
 
   useEffect(() => {
     setCharacters(charactersResponse ? charactersResponse.data : []);
-  }, [charactersResponse, searchTerm, house]);
+  }, [charactersResponse, searchTerm]);
 
   if (isError) return <div>Error fetching data</div>;
 
@@ -55,8 +50,7 @@ const CharacterListPage = () => {
         <Link to="?page=1" onClick={() => setSearchTerm("")}>
           <img src={hplogo} className="max-w-full w-96 mx-auto pb-8"></img>
         </Link>
-        <div className="flex flex-row gap-4 justify-center">
-          <FiltersButton setHouseParams={setHouse} />
+        <div className="flex justify-center">
           <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         </div>
 
