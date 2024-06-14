@@ -1,12 +1,10 @@
 import { useState } from "react";
 import settingslogo from "../assets/settingslogo.svg";
-import React from "react";
-import ReactDOM from "react-dom";
 import Modal from "react-modal";
 import { BLOOD_STATUSES, HOUSES, SPECIES } from "../constants/constants";
 import { useFilters } from "../hooks/useFilters";
 
-const FiltersButton = ({ setHouseParams }) => {
+const FiltersButton = () => {
   const [showModal, setShowModal] = useState(false);
   const [house, setHouse] = useState("");
   const [bloodStatus, setBloodStatus] = useState("");

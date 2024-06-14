@@ -17,7 +17,7 @@ const CharacterInfo = (character) => {
         ></img>
         {Object.entries(characterData).map(([property, value]) => {
           return (
-            <div className="flex flex-col gap-2 items-center">
+            <div className="flex flex-col gap-2 items-center" key={property}>
               <p className="text-xl text-hpdarkbrown font-bold text-center">
                 {property}
               </p>
