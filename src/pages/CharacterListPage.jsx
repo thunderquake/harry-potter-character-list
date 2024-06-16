@@ -10,6 +10,7 @@ import SearchBar from "../components/SearchBar";
 import RemoveFiltersButton from "../components/RemoveFiltersButton";
 import "react-loading-skeleton/dist/skeleton.css";
 import ListSkeleton from "../components/ListSkeleton";
+import FiltersButton from "../components/FiltersButton";
 
 const CharacterListPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -26,12 +27,20 @@ const CharacterListPage = () => {
       "characters",
       Number(searchParams.get("page")),
       ...(searchParams.has("name") ? [searchParams.get("name")] : []),
+      ...(searchParams.has("house") ? [searchParams.get("house")] : []),
+      ...(searchParams.has("blood_status")
+        ? [searchParams.get("blood_status")]
+        : []),
+      ...(searchParams.has("species") ? [searchParams.get("species")] : []),
     ],
     queryFn: () =>
       characterService.getCharacters(
         20,
         searchParams.get("page") ? Number(searchParams.get("page")) : 1,
-        searchParams.get("name") ?? ""
+        searchParams.get("name") ?? "",
+        searchParams.get("house") ?? "",
+        searchParams.get("blood_status") ?? "",
+        searchParams.get("species") ?? ""
       ),
   });
 
@@ -50,7 +59,8 @@ const CharacterListPage = () => {
         <Link to="?page=1" onClick={() => setSearchTerm("")}>
           <img src={hplogo} className="max-w-full w-96 mx-auto pb-8"></img>
         </Link>
-        <div className="flex justify-center">
+        <div className="flex flex-row gap-4 justify-center">
+          <FiltersButton />
           <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         </div>
 
@@ -69,11 +79,11 @@ const CharacterListPage = () => {
       </div>
       {characters.length > 0 && (
         <PaginationButtons
-          pageCount={pageCount}
+          pageCount={pageCount ?? 1}
           searchParams={searchParams}
           setSearchParams={setSearchParams}
           setPage={setPage}
-          page={page}
+          page={page ?? 1}
         />
       )}
     </div>

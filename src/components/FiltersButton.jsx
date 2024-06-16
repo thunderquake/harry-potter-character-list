@@ -1,16 +1,33 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import settingslogo from "../assets/settingslogo.svg";
 import Modal from "react-modal";
 import { BLOOD_STATUSES, HOUSES, SPECIES } from "../constants/constants";
 import { useFilters } from "../hooks/useFilters";
+import { useSearchParams } from "react-router-dom";
 
 const FiltersButton = () => {
   const [showModal, setShowModal] = useState(false);
   const [house, setHouse] = useState("");
   const [bloodStatus, setBloodStatus] = useState("");
   const [species, setSpecies] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const { setFilters } = useFilters(house);
+  const { setFilters } = useFilters(house, bloodStatus, species);
+
+  Modal.setAppElement("#root");
+
+  useEffect(() => {
+    setHouse(searchParams.get("house") ?? "");
+    setBloodStatus(searchParams.get("blood_status") ?? "");
+    setSpecies(searchParams.get("species") ?? "");
+  }, [searchParams, showModal]);
+
+  const removeFilters = () => {
+    setHouse("");
+    setBloodStatus("");
+    setSpecies("");
+    setSearchParams({});
+  };
 
   return (
     <div>
@@ -25,9 +42,16 @@ const FiltersButton = () => {
         isOpen={showModal}
         onRequestClose={() => setShowModal(false)}
         contentLabel="Filters"
-        className="flex flex-col justify-center items-center bg-dun rounded-lg shadow-md p-4 w-96"
+        className="relative flex flex-col justify-center items-center bg-dun rounded-lg shadow-md p-4 w-96"
         overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
       >
+        <button
+          className="absolute top-2 right-2 text-hpdarkbrown font-bold text-2xl"
+          type="button"
+          onClick={() => setShowModal(false)}
+        >
+          &times;
+        </button>
         <h2 className="text-xl font-bold mb-4 text-hpdarkbrown">Filters</h2>
         <div>
           <label
@@ -94,20 +118,21 @@ const FiltersButton = () => {
             ))}
           </select>
         </div>
-        <div className="flex">
+        <div className="flex justify-between w-full">
           <button
-            className="bg-red-600 hover:bg-red-700 text-white font-bold rounded-md p-2 mt-4"
+            className="bg-yellow-600 hover:bg-yellow-500 text-hpdarkbrown font-bold rounded-md p-2 mt-4"
             type="button"
-            onClick={() => setShowModal(false)}
+            onClick={removeFilters}
           >
-            Close
+            Remove Filters
           </button>
 
           <button
             className="bg-yellow-600 hover:bg-yellow-500 text-hpdarkbrown font-bold rounded-md p-2 mt-4"
             type="button"
             onClick={() => {
-              setFilters(house);
+              console.log(bloodStatus);
+              setFilters(house, bloodStatus, species);
               setShowModal(false);
             }}
           >

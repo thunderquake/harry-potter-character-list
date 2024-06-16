@@ -4,7 +4,7 @@ const CharacterInfo = (character) => {
   const characterData = {
     Name: character.name,
     Species: character.species,
-    BloodStatus: character.blood_status,
+    BloodStatus: character.bloodStatus,
     House: character.house,
   };
 
@@ -22,7 +22,7 @@ const CharacterInfo = (character) => {
                 {property}
               </p>
               <p className="text-xl text-hpdarkbrown text-center">
-                {value || "Unknown"}
+                {value.length > 0 ? value : "Unknown"}
               </p>
             </div>
           );
