@@ -4,19 +4,30 @@ import debounce from "lodash.debounce";
 import { useSearchParams } from "react-router-dom";
 
 const SearchBar = ({ searchTerm, setSearchTerm }) => {
-  const [, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const changeSearchParams = useCallback((searchName) => {
-    setSearchParams({
-      page: 1,
-      ...(searchName.length > 0 ? { name: searchName } : {}),
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const changeSearchParams = useCallback(
+    (searchName) => {
+      const newSearchParams = {};
+
+      searchParams.forEach((value, key) => {
+        newSearchParams[key] = value;
+      });
+
+      newSearchParams.page = 1;
+      searchName.length > 0
+        ? (newSearchParams.name = searchName)
+        : delete newSearchParams.name;
+
+      setSearchParams(newSearchParams);
+    },
+    [searchParams, setSearchParams]
+  );
 
   const handleChange = (e) => {
     const searchName = e.target.value.trimStart();
     setSearchTerm(searchName);
+
     debouncedSearchParams(searchName);
   };
 
@@ -28,8 +39,7 @@ const SearchBar = ({ searchTerm, setSearchTerm }) => {
     return () => {
       debouncedSearchParams.cancel();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [debouncedSearchParams]);
 
   return (
     <div className="mb-3 xl:w-96">
@@ -63,4 +73,5 @@ const SearchBar = ({ searchTerm, setSearchTerm }) => {
     </div>
   );
 };
+
 export default SearchBar;
