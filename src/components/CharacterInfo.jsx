@@ -22,7 +22,7 @@ const CharacterInfo = (character) => {
                 {property}
               </p>
               <p className="text-xl text-hpdarkbrown text-center">
-                {value.length > 0 ? value : "Unknown"}
+                {value ? value : "Unknown"}
               </p>
             </div>
           );
