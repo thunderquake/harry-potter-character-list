@@ -2,17 +2,15 @@ import { useState, useEffect } from "react";
 import settingslogo from "../assets/settingslogo.svg";
 import Modal from "react-modal";
 import { BLOOD_STATUSES, HOUSES, SPECIES } from "../constants/constants";
-import { useFilters } from "../hooks/useFilters";
+
 import { useSearchParams } from "react-router-dom";
 
-const FiltersButton = () => {
+const FiltersButton = ({ setFilters }) => {
   const [showModal, setShowModal] = useState(false);
   const [house, setHouse] = useState("");
   const [bloodStatus, setBloodStatus] = useState("");
   const [species, setSpecies] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
-
-  const { setFilters } = useFilters(house, bloodStatus, species);
 
   Modal.setAppElement("#root");
 
@@ -26,7 +24,19 @@ const FiltersButton = () => {
     setHouse("");
     setBloodStatus("");
     setSpecies("");
-    setSearchParams({});
+    setSearchParams({ page: 1 });
+    setShowModal(false);
+  };
+
+  const handleApplyFilters = () => {
+    const filtersObj = {};
+
+    if (house) filtersObj["house"] = house;
+    if (bloodStatus) filtersObj["blood_status"] = bloodStatus;
+    if (species) filtersObj["species"] = species;
+
+    setFilters(filtersObj);
+    setShowModal(false);
   };
 
   return (
@@ -130,11 +140,7 @@ const FiltersButton = () => {
           <button
             className="bg-yellow-600 hover:bg-yellow-500 text-hpdarkbrown font-bold rounded-md p-2 mt-4"
             type="button"
-            onClick={() => {
-              console.log(bloodStatus);
-              setFilters(house, bloodStatus, species);
-              setShowModal(false);
-            }}
+            onClick={handleApplyFilters}
           >
             Apply
           </button>

@@ -46,21 +46,18 @@ const SearchBar = ({ searchTerm, setSearchTerm }) => {
       <div className="relative mb-4 flex w-full flex-wrap items-stretch">
         <input
           type="search"
-          className="relative m-0 block flex-auto rounded border border-solid placeholder-hpbrown border-yellow-700 bg-dun bg-opacity-50 bg-clip-padding px-3 py-1 text-base font-normal text-hpbrown transition duration-200 ease-in-out focus:border-none focus:ring focus:ring-yellow-500 focus:text-hpdarkbrown focus:outline-none"
+          className="relative m-0 block flex-auto rounded border border-solid placeholder-hpbrown border-yellow-700 bg-dun bg-opacity-50 bg-clip-padding px-3 py-1 text-base font-normal text-hpbrown transition duration-200 ease-in-out focus:border-none focus:ring focus:ring-yellow-500 focus:text-hpdarkbrown focus:outline-none pr-10"
           placeholder="Search"
           aria-label="Search"
           value={searchTerm}
           onChange={handleChange}
         />
-        <span
-          className="input-group-text flex items-center whitespace-nowrap rounded px-3 py-1.5 text-center text-base font-normal text-yellow-600"
-          id="basic-addon2"
-        >
+        <span className="absolute inset-y-0 right-0 flex items-center pr-3">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
             fill="currentColor"
-            className="h-5 w-5"
+            className="h-5 w-5 text-hpbrown"
           >
             <path
               fillRule="evenodd"

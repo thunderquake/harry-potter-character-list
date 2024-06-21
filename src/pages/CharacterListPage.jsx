@@ -11,14 +11,17 @@ import RemoveFiltersButton from "../components/RemoveFiltersButton";
 import "react-loading-skeleton/dist/skeleton.css";
 import ListSkeleton from "../components/ListSkeleton";
 import FiltersButton from "../components/FiltersButton";
+import { useFilters } from "../hooks/useFilters";
 
 const CharacterListPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [page, setPage] = useState(searchParams.get("page"));
+  const [page, setPage] = useState(searchParams.get("page") ?? 1);
   const [searchTerm, setSearchTerm] = useState(searchParams.get("name") ?? "");
   const [characters, setCharacters] = useState([]);
 
+  const [filters, setFilters] = useFilters();
   const {
+    isSuccess,
     isLoading,
     isError,
     data: charactersResponse,
@@ -27,31 +30,42 @@ const CharacterListPage = () => {
       "characters",
       Number(searchParams.get("page")),
       ...(searchParams.has("name") ? [searchParams.get("name")] : []),
-      ...(searchParams.has("house") ? [searchParams.get("house")] : []),
-      ...(searchParams.has("blood_status")
-        ? [searchParams.get("blood_status")]
-        : []),
-      ...(searchParams.has("species") ? [searchParams.get("species")] : []),
+      filters.house,
+      filters.blood_status,
+      filters.species,
     ],
     queryFn: () =>
       characterService.getCharacters(
         20,
         searchParams.get("page") ? Number(searchParams.get("page")) : 1,
         searchParams.get("name") ?? "",
-        searchParams.get("house") ?? "",
-        searchParams.get("blood_status") ?? "",
-        searchParams.get("species") ?? ""
+        filters.house,
+        filters.blood_status,
+        filters.species
       ),
   });
 
   useEffect(() => {
     setCharacters(charactersResponse ? charactersResponse.data : []);
-  }, [charactersResponse, searchTerm]);
-
-  if (isError) return <div>Error fetching data</div>;
+  }, [charactersResponse]);
 
   const recordsCount = charactersResponse?.meta?.pagination?.records || 0;
   const pageCount = Math.ceil(recordsCount / CHARACTERS_PAGE_LIMIT);
+  const currentPage = Number(searchParams.get("page") || 1);
+
+  useEffect(() => {
+    if (
+      isSuccess &&
+      !isLoading &&
+      (currentPage < 1 || currentPage > pageCount)
+    ) {
+      const fixedPage =
+        currentPage < 1 || currentPage > pageCount ? 1 : currentPage;
+      setFilters({ page: fixedPage });
+    }
+  }, [currentPage, isLoading, isSuccess, pageCount, setFilters]);
+
+  if (isError) return <div>Error fetching data</div>;
 
   return (
     <div className=" bg-hpbrown min-h-svh">
@@ -60,7 +74,7 @@ const CharacterListPage = () => {
           <img src={hplogo} className="max-w-full w-96 mx-auto pb-8"></img>
         </Link>
         <div className="flex flex-row gap-4 justify-center">
-          <FiltersButton />
+          <FiltersButton setFilters={setFilters} />
           <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         </div>
 
