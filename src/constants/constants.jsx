@@ -361,4 +361,4 @@ export const BLOOD_STATUSES = [
   "Muggle (possibly)",
 ];
 
-export const FILTERING_OPTIONS = ["name", "house", "bloodstatus"];
+export const FILTERING_OPTIONS = ["name", "house", "blood_status", "species"];

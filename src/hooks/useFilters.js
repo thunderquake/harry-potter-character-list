@@ -1,24 +1,32 @@
 import { useSearchParams } from "react-router-dom";
 import { FILTERING_OPTIONS } from "../constants/constants";
+import { useCallback } from "react";
 
-export const useFilters = (house, bloodStatus, species) => {
+export const useFilters = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  return {
-    setFilters: () => {
-      const filters = {};
-      const page = 1;
-      FILTERING_OPTIONS.forEach((option) => {
-        const searchBarOption = searchParams.get(option);
-        if (!!searchBarOption) {
-          filters[option] = searchBarOption;
-        }
+
+  const getFilters = useCallback(() => {
+    const filtersObj = {};
+    FILTERING_OPTIONS.forEach((option) => {
+      const searchBarOption = searchParams.get(option);
+      if (searchBarOption) {
+        filtersObj[option] = searchBarOption;
+      }
+    });
+
+    return filtersObj;
+  }, [searchParams]);
+
+  const setFilters = useCallback(
+    (filters) => {
+      setSearchParams({
+        ...getFilters(),
+        ...filters,
+        page: 1,
       });
-
-      if (house) filters.house = house;
-      if (bloodStatus) filters.blood_status = bloodStatus;
-      if (species) filters.species = species;
-
-      setSearchParams({ ...filters, page });
     },
-  };
+    [getFilters, setSearchParams]
+  );
+
+  return [getFilters(), setFilters];
 };
