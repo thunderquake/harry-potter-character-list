@@ -26,7 +26,7 @@ const CharacterPage = () => {
   if (isError) return <div>Error fetching data</div>;
 
   return (
-    <div className=" bg-hpbrown min-h-svh">
+    <div className=" bg-harrypotterbrown min-h-svh">
       <GoBackButton />
       {character && !isFetching ? (
         <CharacterInfo
