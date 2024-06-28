@@ -18,11 +18,11 @@ const PageSkeleton = () => {
             .map((_, index) => (
               <div className="flex flex-col gap-2 items-center" key={index}>
                 <Skeleton
-                  className="text-xl text-hpdarkbrown font-bold text-center"
+                  className="text-xl text-harrypotterdarkbrown font-bold text-center"
                   width={100}
                 />
                 <Skeleton
-                  className="text-xl text-hpdarkbrown text-center"
+                  className="text-xl text-harrypotterdarkbrown text-center"
                   width={200}
                 />
               </div>

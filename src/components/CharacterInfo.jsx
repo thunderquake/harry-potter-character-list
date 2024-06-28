@@ -18,10 +18,10 @@ const CharacterInfo = ({ name, species, bloodStatus, house, image }) => {
         {Object.entries(characterData).map(([property, value]) => {
           return (
             <div className="flex flex-col gap-2 items-center" key={property}>
-              <p className="text-xl text-hpdarkbrown font-bold text-center">
+              <p className="text-xl text-harrypotterdarkbrown font-bold text-center">
                 {property}
               </p>
-              <p className="text-xl text-hpdarkbrown text-center">
+              <p className="text-xl text-harrypotterdarkbrown text-center">
                 {value ?? "Unknown"}
               </p>
             </div>

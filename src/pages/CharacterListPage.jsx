@@ -36,7 +36,7 @@ const CharacterListPage = () => {
     ],
     queryFn: () =>
       characterService.getCharacters({
-        "page[size]": 20,
+        "page[size]": CHARACTERS_PAGE_LIMIT,
         "page[number]": searchParams.get("page")
           ? Number(searchParams.get("page"))
           : 1,
@@ -67,7 +67,7 @@ const CharacterListPage = () => {
   if (isError) return <div>Error fetching data</div>;
 
   return (
-    <div className=" bg-hpbrown min-h-svh">
+    <div className=" bg-harrypotterbrown min-h-svh">
       <div className="container mx-auto py-10">
         <Link to="?page=1" onClick={() => setSearchTerm("")}>
           <img src={hplogo} className="max-w-full w-96 mx-auto pb-8"></img>

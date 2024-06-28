@@ -46,7 +46,7 @@ const SearchBar = ({ searchTerm, setSearchTerm }) => {
       <div className="relative mb-4 flex w-full flex-wrap items-stretch">
         <input
           type="search"
-          className="relative m-0 block flex-auto rounded border border-solid placeholder-hpbrown border-yellow-700 bg-dun bg-opacity-50 bg-clip-padding px-3 py-1 text-base font-normal text-hpbrown transition duration-200 ease-in-out focus:border-none focus:ring focus:ring-yellow-500 focus:text-hpdarkbrown focus:outline-none pr-10"
+          className="relative m-0 block flex-auto rounded border border-solid placeholder-harrypotterbrown border-yellow-700 bg-dun bg-opacity-50 bg-clip-padding px-3 py-1 text-base font-normal text-harrypotterbrown transition duration-200 ease-in-out focus:border-none focus:ring focus:ring-yellow-500 focus:text-harrypotterdarkbrown focus:outline-none pr-10"
           placeholder="Search"
           aria-label="Search"
           value={searchTerm}
@@ -57,7 +57,7 @@ const SearchBar = ({ searchTerm, setSearchTerm }) => {
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
             fill="currentColor"
-            className="h-5 w-5 text-hpbrown"
+            className="h-5 w-5 text-harrypotterbrown"
           >
             <path
               fillRule="evenodd"

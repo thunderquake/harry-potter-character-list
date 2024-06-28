@@ -52,7 +52,7 @@ const PaginationButtons = ({
         {currentPage > 1 && (
           <button
             onClick={handlePageClickPrev}
-            className="rounded-xl bg-dun hover:bg-yellow-500 font-bold text-hpdarkbrown py-2 px-4"
+            className="rounded-xl bg-dun hover:bg-yellow-500 font-bold text-harrypotterdarkbrown py-2 px-4"
           >
             {"<"}
           </button>
@@ -64,7 +64,7 @@ const PaginationButtons = ({
         {currentPage < pageCount && (
           <button
             onClick={handlePageClickNext}
-            className="rounded-xl bg-dun hover:bg-yellow-500 font-bold text-hpdarkbrown py-2 px-4"
+            className="rounded-xl bg-dun hover:bg-yellow-500 font-bold text-harrypotterdarkbrown py-2 px-4"
           >
             {">"}
           </button>

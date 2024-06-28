@@ -69,17 +69,19 @@ const FiltersButton = ({ setFilters }) => {
         overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
       >
         <button
-          className="absolute top-2 right-2 text-hpdarkbrown font-bold text-2xl"
+          className="absolute top-2 right-2 text-harrypotterdarkbrown font-bold text-2xl"
           type="button"
           onClick={() => setShowModal(false)}
         >
           &times;
         </button>
-        <h2 className="text-xl font-bold mb-4 text-hpdarkbrown">Filters</h2>
+        <h2 className="text-xl font-bold mb-4 text-harrypotterdarkbrown">
+          Filters
+        </h2>
         <div>
           <label
             htmlFor="house"
-            className="block mb-2 font-bold text-hpdarkbrown"
+            className="block mb-2 font-bold text-harrypotterdarkbrown"
           >
             House
           </label>
@@ -101,7 +103,7 @@ const FiltersButton = ({ setFilters }) => {
         <div>
           <label
             htmlFor="bloodStatus"
-            className="block mb-2 font-bold text-hpdarkbrown"
+            className="block mb-2 font-bold text-harrypotterdarkbrown"
           >
             Blood Status
           </label>
@@ -123,7 +125,7 @@ const FiltersButton = ({ setFilters }) => {
         <div>
           <label
             htmlFor="species"
-            className="block mb-2 font-bold text-hpdarkbrown"
+            className="block mb-2 font-bold text-harrypotterdarkbrown"
           >
             Species
           </label>
@@ -143,7 +145,7 @@ const FiltersButton = ({ setFilters }) => {
         </div>
         <div className="flex justify-between w-full">
           <button
-            className="bg-yellow-600 hover:bg-yellow-500 text-hpdarkbrown font-bold rounded-md p-2 mt-4"
+            className="bg-yellow-600 hover:bg-yellow-500 text-harrypotterdarkbrown font-bold rounded-md p-2 mt-4"
             type="button"
             onClick={removeFilters}
           >
@@ -151,7 +153,7 @@ const FiltersButton = ({ setFilters }) => {
           </button>
 
           <button
-            className="bg-yellow-600 hover:bg-yellow-500 text-hpdarkbrown font-bold rounded-md p-2 mt-4"
+            className="bg-yellow-600 hover:bg-yellow-500 text-harrypotterdarkbrown font-bold rounded-md p-2 mt-4"
             type="button"
             onClick={handleApplyFilters}
           >
