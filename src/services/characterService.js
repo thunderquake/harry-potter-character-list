@@ -1,4 +1,5 @@
 import axios from "axios";
+import buildQueryString from "../helpers/buildQueryString";
 
 class characterService {
   constructor(baseURL = "https://api.potterdb.com/v1") {
@@ -6,25 +7,10 @@ class characterService {
     this.instance = axios.create({ baseURL: this.baseUrl });
   }
 
-  async getCharacters(
-    pageSize,
-    pageNumber,
-    searchTerm,
-    house,
-    bloodStatus,
-    species
-  ) {
+  async getCharacters(params) {
     try {
-      const response = await this.instance.get("/characters", {
-        params: {
-          "page[size]": pageSize,
-          "page[number]": pageNumber,
-          "filter[name_cont]": searchTerm,
-          "filter[house_eq]": house,
-          "filter[blood_status_eq]": bloodStatus,
-          "filter[species_eq]": species,
-        },
-      });
+      const queryString = buildQueryString(params);
+      const response = await this.instance.get(`/characters?${queryString}`);
       return response.data;
     } catch (error) {
       throw new Error("Failed to fetch characters");

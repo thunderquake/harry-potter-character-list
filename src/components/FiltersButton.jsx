@@ -30,12 +30,25 @@ const FiltersButton = ({ setFilters }) => {
 
   const handleApplyFilters = () => {
     const filtersObj = {};
+    const newSearchParams = {};
 
-    if (house) filtersObj["house"] = house;
-    if (bloodStatus) filtersObj["blood_status"] = bloodStatus;
-    if (species) filtersObj["species"] = species;
+    searchParams.forEach((value, key) => {
+      newSearchParams[key] = value;
+    });
+
+    house
+      ? ((filtersObj["house"] = house), (newSearchParams.house = house))
+      : delete newSearchParams.house;
+    bloodStatus
+      ? ((filtersObj["blood_status"] = bloodStatus),
+        (newSearchParams.blood_status = bloodStatus))
+      : delete newSearchParams.blood_status;
+    species
+      ? ((filtersObj["species"] = species), (newSearchParams.species = species))
+      : delete newSearchParams.species;
 
     setFilters(filtersObj);
+    setSearchParams(newSearchParams);
     setShowModal(false);
   };
 

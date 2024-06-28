@@ -35,14 +35,16 @@ const CharacterListPage = () => {
       filters.species,
     ],
     queryFn: () =>
-      characterService.getCharacters(
-        20,
-        searchParams.get("page") ? Number(searchParams.get("page")) : 1,
-        searchParams.get("name") ?? "",
-        filters.house,
-        filters.blood_status,
-        filters.species
-      ),
+      characterService.getCharacters({
+        "page[size]": 20,
+        "page[number]": searchParams.get("page")
+          ? Number(searchParams.get("page"))
+          : 1,
+        "filter[name_cont]": searchParams.get("name") ?? "",
+        "filter[house_eq]": filters.house,
+        "filter[blood_status_eq]": filters.blood_status,
+        "filter[species_eq]": filters.species,
+      }),
   });
 
   useEffect(() => {
@@ -52,18 +54,15 @@ const CharacterListPage = () => {
   const recordsCount = charactersResponse?.meta?.pagination?.records || 0;
   const pageCount = Math.ceil(recordsCount / CHARACTERS_PAGE_LIMIT);
   const currentPage = Number(searchParams.get("page") || 1);
+  const isOutOfRange =
+    currentPage < 1 || currentPage > pageCount ? true : false;
 
   useEffect(() => {
-    if (
-      isSuccess &&
-      !isLoading &&
-      (currentPage < 1 || currentPage > pageCount)
-    ) {
-      const fixedPage =
-        currentPage < 1 || currentPage > pageCount ? 1 : currentPage;
+    if (isSuccess && !isLoading && isOutOfRange) {
+      const fixedPage = isOutOfRange ? 1 : currentPage;
       setFilters({ page: fixedPage });
     }
-  }, [currentPage, isLoading, isSuccess, pageCount, setFilters]);
+  }, [currentPage, isLoading, isOutOfRange, isSuccess, pageCount, setFilters]);
 
   if (isError) return <div>Error fetching data</div>;
 
