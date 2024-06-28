@@ -19,6 +19,10 @@ export const useFilters = () => {
 
   const setFilters = useCallback(
     (filters) => {
+      // Object.entries().forEach((filter) => {
+      //   searchParams.delete(filter);
+      // });
+
       setSearchParams({
         ...getFilters(),
         ...filters,
