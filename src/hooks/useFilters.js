@@ -19,11 +19,14 @@ export const useFilters = () => {
 
   const setFilters = useCallback(
     (filters) => {
-      setSearchParams({
-        ...getFilters(),
-        ...filters,
-        page: 1,
-      });
+      setSearchParams(
+        {
+          ...getFilters(),
+          ...filters,
+          page: 1,
+        },
+        { replace: true }
+      );
     },
     [getFilters, setSearchParams]
   );

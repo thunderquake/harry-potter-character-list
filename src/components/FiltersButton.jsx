@@ -36,19 +36,11 @@ const FiltersButton = ({ setFilters }) => {
       newSearchParams[key] = value;
     });
 
-    house
-      ? ((filtersObj["house"] = house), (newSearchParams.house = house))
-      : delete newSearchParams.house;
-    bloodStatus
-      ? ((filtersObj["blood_status"] = bloodStatus),
-        (newSearchParams.blood_status = bloodStatus))
-      : delete newSearchParams.blood_status;
-    species
-      ? ((filtersObj["species"] = species), (newSearchParams.species = species))
-      : delete newSearchParams.species;
+    house && (filtersObj["house"] = house);
+    bloodStatus && (filtersObj["blood_status"] = bloodStatus);
+    species && (filtersObj["species"] = species);
 
     setFilters(filtersObj);
-    setSearchParams(newSearchParams);
     setShowModal(false);
   };
 
