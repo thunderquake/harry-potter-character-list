@@ -5,7 +5,7 @@ import characterService from "../services/characterService";
 import CharacterList from "../components/CharacterList";
 import PaginationButtons from "../components/PaginationButtons";
 import { Link, useSearchParams } from "react-router-dom";
-import { CHARACTERS_PAGE_LIMIT } from "../constants/constants";
+import { CHARACTERS_PAGE_LIMIT, HTTP_PARAMS } from "../constants/constants";
 import SearchBar from "../components/SearchBar";
 import RemoveFiltersButton from "../components/RemoveFiltersButton";
 import "react-loading-skeleton/dist/skeleton.css";
@@ -36,17 +36,16 @@ const CharacterListPage = () => {
     ],
     queryFn: () =>
       characterService.getCharacters({
-        "page[size]": CHARACTERS_PAGE_LIMIT,
-        "page[number]": searchParams.get("page")
+        [`page[${HTTP_PARAMS.pageSize}]`]: CHARACTERS_PAGE_LIMIT,
+        [`page[${HTTP_PARAMS.pageNumber}]`]: searchParams.get("page")
           ? Number(searchParams.get("page"))
           : 1,
-        "filter[name_cont]": searchParams.get("name") ?? "",
-        "filter[house_eq]": filters.house,
-        "filter[blood_status_eq]": filters.blood_status,
-        "filter[species_eq]": filters.species,
+        [`filter[${HTTP_PARAMS.name}]`]: searchParams.get("name") ?? "",
+        [`filter[${HTTP_PARAMS.house}]`]: filters.house,
+        [`filter[${HTTP_PARAMS.bloodStatus}]`]: filters.blood_status,
+        [`filter[${HTTP_PARAMS.species}]`]: filters.species,
       }),
   });
-
   useEffect(() => {
     setCharacters(charactersResponse ? charactersResponse.data : []);
   }, [charactersResponse]);

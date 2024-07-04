@@ -1,4 +1,4 @@
-import { MISSING_CHARACTER } from "../constants/constants.jsx";
+import { MISSING_CHARACTER, PROPERTIES } from "../constants/constants.jsx";
 
 const CharacterInfo = ({ name, species, bloodStatus, house, image }) => {
   const characterData = {
@@ -19,7 +19,7 @@ const CharacterInfo = ({ name, species, bloodStatus, house, image }) => {
           return (
             <div className="flex flex-col gap-2 items-center" key={property}>
               <p className="text-xl text-harrypotterdarkbrown font-bold text-center">
-                {property}
+                {PROPERTIES[property] ?? property}
               </p>
               <p className="text-xl text-harrypotterdarkbrown text-center">
                 {value ?? "Unknown"}

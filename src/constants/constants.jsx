@@ -3,6 +3,24 @@ export const MISSING_CHARACTER =
 
 export const CHARACTERS_PAGE_LIMIT = 20;
 
+export const FILTERING_OPTIONS = ["name", "house", "blood_status", "species"];
+
+export const PROPERTIES = {
+  name: "Name",
+  species: "Species",
+  bloodStatus: "Blood status",
+  house: "House",
+};
+
+export const HTTP_PARAMS = {
+  pageSize: "size",
+  pageNumber: "number",
+  name: "name_cont",
+  house: "house_eq",
+  bloodStatus: "blood_status_eq",
+  species: "species_eq",
+};
+
 export const HOUSES = [
   "Gryffindor",
   "Slytherin",
@@ -360,5 +378,3 @@ export const BLOOD_STATUSES = [
   "Muggle (as implied by the Muggle-Born Registration Commission), Pure-blood or half-blood (as claimed by his alleged son)",
   "Muggle (possibly)",
 ];
-
-export const FILTERING_OPTIONS = ["name", "house", "blood_status", "species"];
