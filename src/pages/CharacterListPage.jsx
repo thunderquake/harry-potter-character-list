@@ -57,11 +57,24 @@ const CharacterListPage = () => {
     currentPage < 1 || currentPage > pageCount ? true : false;
 
   useEffect(() => {
-    if (isSuccess && !isLoading && isOutOfRange) {
+    if (isSuccess && !isLoading && isOutOfRange && pageCount > 0) {
       const fixedPage = isOutOfRange ? 1 : currentPage;
-      setFilters({ page: fixedPage });
+      setSearchParams({
+        ...filters,
+        page: fixedPage,
+      });
     }
-  }, [currentPage, isLoading, isOutOfRange, isSuccess, pageCount, setFilters]);
+  }, [
+    currentPage,
+    filters,
+    isLoading,
+    isOutOfRange,
+    isSuccess,
+    pageCount,
+    recordsCount.length,
+    searchParams,
+    setSearchParams,
+  ]);
 
   if (isError) return <div>Error fetching data</div>;
 
